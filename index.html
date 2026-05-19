@@ -119,7 +119,7 @@ function fmt(n, d) { return n == null ? '' : Number(n).toLocaleString('ko-KR', {
 const latest = TABLE[0];
 document.getElementById('latest').innerHTML = `
   <div class="item"><span class="label">${latest.date} KOSPI</span><span class="value">${fmt(latest.kospi, 0)}</span></div>
-  <div class="item"><span class="label">외인비중</span><span class="value">${fmt(latest.foreign_ratio, 2)}%</span></div>
+  <div class="item"><span class="label">외인비중</span><span class="value">${fmt(latest.foreign_ratio, 1)}%</span></div>
 `;
 
 const tbody = document.getElementById('tbody');
@@ -127,7 +127,7 @@ tbody.innerHTML = TABLE.map(r => `
   <tr>
     <td class="date">${r.date}</td>
     <td>${fmt(r.kospi, 0)}</td>
-    <td>${fmt(r.foreign_ratio, 2)}</td>
+    <td>${fmt(r.foreign_ratio, 1)}</td>
     <td>${fmt((r.mcap||0)/10000, 0)}</td>
     <td>${fmt((r.foreign_hold||0)/10000, 0)}</td>
   </tr>
