@@ -51,21 +51,21 @@
     background: #ffffff; border: 1px solid #e5e5e5; border-radius: 6px; padding: 8px;
     margin-bottom: 10px; height: 38vh; min-height: 200px;
   }
-  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 6px; overflow: hidden; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 6px; }
   th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid #eee; }
   th {
     color: #666; font-weight: 600; font-size: 13px;
     background: #f5f5f5;
-    position: sticky; top: 0; z-index: 2;
+    position: sticky; top: 0; z-index: 10;
     box-shadow: inset 0 -1px 0 #ddd;
   }
   td.date { text-align: left; color: #333; }
   tbody tr:hover { background: #f9f9f9; }
-  .table-wrap { max-height: calc(100vh - 38vh - 110px); overflow-y: auto; }
+  /* body 자체 스크롤. table-wrap은 그냥 컨테이너 역할만 */
+  .table-wrap { }
   @media (orientation: landscape) and (max-width: 1024px) {
     body { padding: 6px 10px; font-size: 14px; }
     .chart-wrap { height: 42vh; }
-    .table-wrap { max-height: calc(100vh - 42vh - 90px); }
     th, td { padding: 6px 8px; font-size: 13px; }
     .title { font-size: 16px; }
     .latest { font-size: 13px; gap: 14px; }
@@ -118,7 +118,7 @@ function fmt(n, d) { return n == null ? '' : Number(n).toLocaleString('ko-KR', {
 
 const latest = TABLE[0];
 document.getElementById('latest').innerHTML = `
-  <div class="item"><span class="label">${latest.date} KOSPI</span><span class="value">${fmt(latest.kospi, 2)}</span></div>
+  <div class="item"><span class="label">${latest.date} KOSPI</span><span class="value">${fmt(latest.kospi, 0)}</span></div>
   <div class="item"><span class="label">외인비중</span><span class="value">${fmt(latest.foreign_ratio, 2)}%</span></div>
 `;
 
@@ -126,10 +126,10 @@ const tbody = document.getElementById('tbody');
 tbody.innerHTML = TABLE.map(r => `
   <tr>
     <td class="date">${r.date}</td>
-    <td>${fmt(r.kospi, 2)}</td>
+    <td>${fmt(r.kospi, 0)}</td>
     <td>${fmt(r.foreign_ratio, 2)}</td>
-    <td>${fmt((r.mcap||0)/10000, 2)}</td>
-    <td>${fmt((r.foreign_hold||0)/10000, 2)}</td>
+    <td>${fmt((r.mcap||0)/10000, 0)}</td>
+    <td>${fmt((r.foreign_hold||0)/10000, 0)}</td>
   </tr>
 `).join('');
 
